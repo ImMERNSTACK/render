@@ -75,6 +75,8 @@ gem 'activeadmin'
 gem 'sassc-rails'
 gem 'bootstrap-sass'
 gem 'active_bootstrap_skin'
+gem 'ransack'
+
 
 
 

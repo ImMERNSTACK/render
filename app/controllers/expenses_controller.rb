@@ -4,13 +4,14 @@ class ExpensesController < ApplicationController
 
   # GET /expenses or /expenses.json
   def index
-    @expenses = current_user.expenses.page(params[:page]).per(6)
+    @q =  current_user.expenses.ransack(params[:q])
+    @expenses =  @q.result(distinct: true).page(params[:page]).per(6)
   end
 
   def category
     puts "------#{params[:category]}"
-
-    @expenses = current_user.expenses.where(category_id: params[:category]).page(params[:page]).per(6)
+    @q =  current_user.expenses.ransack(params[:q])
+    @expenses = @q.result.where(category_id: params[:category]).page(params[:page]).per(6)
     
      respond_to do |format|
       format.html { render :index }
@@ -68,7 +69,9 @@ class ExpensesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_expense
+      @q = Expense.ransack(params[:q])
       @expense = Expense.find(params[:id])
+      
     end
 
     # Only allow a list of trusted parameters through.

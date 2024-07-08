@@ -1,7 +1,8 @@
 <p style="color: green"><%= notice %></p>
 
 <div class="container">
-
+<div class="row">
+<div class="col-6">
 <div class="card mb-3" style="max-width: 600px;">
 <div class="row g-0">
   <div class="col-md-4">
@@ -30,14 +31,16 @@
 
   <%= button_to "Destroy this expense", @expense, method: :delete ,class:"btn btn-danger" %>
 </div>
-
+</div>
+<div class='col-6'>
 <p>
-  <strong>Receipt:</strong>
+  <h4>Receipt</h4>  
   <% if @expense.receipt.attached? %>
-    <%= image_tag @expense.receipt, size: "200x200" %>
+    <%= image_tag @expense.receipt, size: "500x500" %>
   <% else %>
     No receipt uploaded.
   <% end %>
 </p>
-
+</div>
+</div>
 </div>

@@ -9,8 +9,9 @@
   <div class="card-body">
     <h5 class="card-title"><%= expense.title %>&nbsp; </h5>
     <h6 class="card-subtitle mb-2 text-muted">$<%= expense.amount %></h6>
+    <div class="overflow-auto h-25 mb-3">
     <p class="card-text"><%= expense.description %></p>
-    
+    </div>
     <%= link_to "Show this expense", expense ,class:"btn btn-primary" %>
     
   </div>
