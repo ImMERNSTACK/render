@@ -1,16 +1,16 @@
 class ExpensesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_expense, only: %i[ show edit update destroy ]
+  before_action :set_ransack
 
-  # GET /expenses or /expenses.json
+ 
   def index
-    @q =  current_user.expenses.ransack(params[:q])
     @expenses =  @q.result(distinct: true).page(params[:page]).per(6)
   end
 
   def category
     puts "------#{params[:category]}"
-    @q =  current_user.expenses.ransack(params[:q])
+   
     @expenses = @q.result.where(category_id: params[:category]).page(params[:page]).per(6)
     
      respond_to do |format|
@@ -20,20 +20,20 @@ class ExpensesController < ApplicationController
     
   end
 
-  # GET /expenses/1 or /expenses/1.json
+  
   def show
   end
 
-  # GET /expenses/new
+  
   def new
     @expense = Expense.new
   end
 
-  # GET /expenses/1/edit
+  
   def edit
   end
 
-  # POST /expenses or /expenses.json
+  
   def create
     @expense = current_user.expenses.build(expense_params)
     if @expense.save
@@ -43,7 +43,7 @@ class ExpensesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /expenses/1 or /expenses/1.json
+  
   def update
     respond_to do |format|
       if @expense.update(expense_params)
@@ -56,7 +56,7 @@ class ExpensesController < ApplicationController
     end
   end
 
-  # DELETE /expenses/1 or /expenses/1.json
+ 
   def destroy
     @expense.destroy!
 
@@ -67,14 +67,19 @@ class ExpensesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    def set_ransack
+     
+      @q =  current_user.expenses.ransack(params[:q])
+
+    end  
+
     def set_expense
-      @q = Expense.ransack(params[:q])
+      
       @expense = Expense.find(params[:id])
       
     end
 
-    # Only allow a list of trusted parameters through.
+    
    def expense_params
       params.require(:expense).permit(:title, :amount, :description, :date, :category_id, :receipt)
    end

@@ -3,6 +3,7 @@
 <div class="col-12 d-flex justify-content-center">
 <div class="card w-50">
 <div class="card-body">
+<%  @q =  current_user.expenses.ransack(params[:q]) %>
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
