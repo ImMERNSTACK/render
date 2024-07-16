@@ -1,8 +1,8 @@
 databases:
- - name: mysite
- - databaseName: mysite
-   user: mysite
-   plain: free
+ - name: expence
+   databaseName: expence_test
+   user: expence
+   plan: free
 
    services:
    - type: web
